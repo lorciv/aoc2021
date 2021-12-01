@@ -1,0 +1,14 @@
+public void soluz_p2(){
+        fillArrayList();
+        int count = 0;
+        int prec = ArrList.get(0)+ArrList.get(1)+ArrList.get(2);
+
+        for(int i=0;i<ArrList.size()-2;i++){
+            int parz = ArrList.get(i)+ArrList.get(i+1)+ArrList.get(i+2);
+            if(parz>prec){
+                count++;
+            }
+            prec=parz;
+        }
+        System.out.println(count);
+    }
