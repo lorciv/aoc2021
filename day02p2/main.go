@@ -32,6 +32,8 @@ func main() {
 			aim += n
 		case "up":
 			aim -= n
+		default:
+			log.Fatalf("unknown command %q", cmd[0])
 		}
 	}
 	if err := scan.Err(); err != nil {

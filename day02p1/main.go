@@ -9,7 +9,10 @@ import (
 	"strings"
 )
 
-var pos, depth int = 0, 0
+var (
+	pos   = 0
+	depth = 0
+)
 
 func main() {
 	scan := bufio.NewScanner(os.Stdin)
@@ -27,6 +30,8 @@ func main() {
 			depth += n
 		case "up":
 			depth -= n
+		default:
+			log.Fatalf("unknown command %q", cmd[0])
 		}
 	}
 	if err := scan.Err(); err != nil {
