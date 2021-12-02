@@ -8,21 +8,20 @@ import (
 	"strconv"
 )
 
-var win [3]int
+var window [3]int
 
 func sum() int {
 	s := 0
-	for i := 0; i < len(win); i++ {
-		s += win[i]
+	for i := 0; i < len(window); i++ {
+		s += window[i]
 	}
 	return s
 }
 
 func main() {
-
 	scan := bufio.NewScanner(os.Stdin)
 
-	for i := 0; i < len(win); i++ {
+	for i := 0; i < len(window); i++ {
 		if !scan.Scan() {
 			log.Fatal("could not scan initial values")
 		}
@@ -30,7 +29,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		win[i] = n
+		window[i] = n
 	}
 
 	last, count := sum(), 0
@@ -42,8 +41,8 @@ func main() {
 		}
 
 		// left shift
-		copy(win[:], win[1:])
-		win[len(win)-1] = n
+		copy(window[:], window[1:])
+		window[len(window)-1] = n
 
 		s := sum()
 		if s > last {
