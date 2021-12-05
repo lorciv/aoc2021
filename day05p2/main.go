@@ -11,6 +11,13 @@ type coord struct {
 	x, y int
 }
 
+func (c coord) add(step coord) coord {
+	return coord{
+		x: c.x + step.x,
+		y: c.y + step.y,
+	}
+}
+
 func main() {
 	overlaps := make(map[coord]int)
 
@@ -19,30 +26,24 @@ func main() {
 		var from, to coord
 		fmt.Sscanf(scan.Text(), "%d,%d -> %d,%d", &from.x, &from.y, &to.x, &to.y)
 
-		if from.x == to.x {
-			// horizontal
-			if from.y > to.y {
-				from, to = to, from
-			}
-			for y := from.y; y <= to.y; y++ {
-				overlaps[coord{from.x, y}]++
-			}
-		} else if from.y == to.y {
-			// vertical
-			if from.x > to.x {
-				from, to = to, from
-			}
-			for x := from.x; x <= to.x; x++ {
-				overlaps[coord{x, from.y}]++
-			}
-		} else {
-			// diagonal
-			length := abs(to.x - from.x)
-			xStep, yStep := (to.x-from.x)/length, (to.y-from.y)/length
-			for i := 0; i <= length; i++ {
-				overlaps[coord{from.x + i*xStep, from.y + i*yStep}]++
-			}
+		step := coord{
+			x: (to.x - from.x),
+			y: (to.y - from.y),
 		}
+		if step.x != 0 {
+			step.x /= abs(to.x - from.x)
+		}
+		if step.y != 0 {
+			step.y /= abs(to.y - from.y)
+		}
+
+		cur := from
+		for cur != to {
+			overlaps[cur]++
+			cur = cur.add(step)
+		}
+		// last cell included
+		overlaps[cur]++
 	}
 	if scan.Err() != nil {
 		log.Fatal(scan.Err())
