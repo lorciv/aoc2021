@@ -27,8 +27,8 @@ func main() {
 		fmt.Sscanf(scan.Text(), "%d,%d -> %d,%d", &from.x, &from.y, &to.x, &to.y)
 
 		step := coord{
-			x: (to.x - from.x),
-			y: (to.y - from.y),
+			x: to.x - from.x,
+			y: to.y - from.y,
 		}
 		if step.x != 0 {
 			step.x /= abs(to.x - from.x)
