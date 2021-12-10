@@ -23,8 +23,8 @@ func (c coord) sum(d coord) coord {
 var directions = []coord{
 	{-1, 0}, // up
 	{0, 1},  // right
-	{1, 0},  //down
-	{0, -1}, //left
+	{1, 0},  // down
+	{0, -1}, // left
 }
 
 func main() {
@@ -38,7 +38,10 @@ func main() {
 			cols = len(split)
 		}
 		for y, c := range split {
-			h, _ := strconv.Atoi(c)
+			h, err := strconv.Atoi(c)
+			if err != nil {
+				log.Fatalf("could not parse height: %v", err)
+			}
 			heightMap[coord{rows, y}] = h
 		}
 		rows++
@@ -55,7 +58,7 @@ func main() {
 			for _, d := range directions {
 				adj, ok := heightMap[cur.sum(d)]
 				if !ok {
-					adj = 10 // maxint
+					adj = 10 // height is always < 10
 				}
 				if adj <= heightMap[cur] {
 					low = false
