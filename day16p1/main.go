@@ -64,10 +64,6 @@ func shift(n int) string {
 	return head
 }
 
-func trim() {
-	bits = strings.TrimLeft(bits, "0")
-}
-
 func parse() (packet, error) {
 	head, err := parseHeader()
 	if err != nil {
